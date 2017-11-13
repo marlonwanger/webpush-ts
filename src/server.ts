@@ -39,7 +39,7 @@ class Server {
     router = express.Router();
 
     this.app.use("/", router);
-    this.app.use("/api/v1/webpush", WebPushRouter);
+    this.app.use("/webpush", WebPushRouter);
   }
 
 

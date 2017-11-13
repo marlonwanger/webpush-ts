@@ -7,8 +7,8 @@ export class WebPushController {
   webp: webpush;
   pushSubscriptions = [];
 
-  constructor() {
 
+  constructor() {
     this.config();
   }
 
@@ -22,10 +22,9 @@ export class WebPushController {
 
   subscription(req: Request, res: Response): void {
 
-    console.log("aew");
 
-    if ( this.arrayObjectIndexOf(this.pushSubscriptions, req.body.subscription.endpoint, "endpoint") === -1) {
-      this.pushSubscriptions.push(req.body.subscription);
+    if ( this.arrayObjectIndexOf(this.pushSubscriptions, req.body.Subscription.endpoint, "endpoint") === -1) {
+      this.pushSubscriptions.push(req.body.Subscription);
     }
 
     res.send({
@@ -38,7 +37,7 @@ export class WebPushController {
 
     console.log("aew unsub");
 
-    let subscriptionIndex: any = this.arrayObjectIndexOf(this.pushSubscriptions, req.body.subscription.endpoint, "endpoint");
+    let subscriptionIndex: any = this.arrayObjectIndexOf(this.pushSubscriptions, req.body.Subscription.endpoint, "endpoint");
 
     if (subscriptionIndex >= 0) {
 
@@ -52,30 +51,28 @@ export class WebPushController {
   }
 
   countSubscritption(req: Request, res: Response): void {
-    console.log("Count Subscription ");
+    console.log("Count Subscription ", this.pushSubscriptions.length);
 
     res.send({
       status: "200",
-      quantidade: 1
+      quantidade: this.pushSubscriptions.length
     });
   }
 
-  sendNotification(req: Request, res: Response): void {
-    if (this.pushSubscriptions) {
-      webPush.sendNotification(pushSubscription, payload)
-        .then(function (response) {
-          logger.info('Push sent')
-          logger.debug(payload)
-          logger.debug(response)
+  sendNotification(pushSubscription: any, payload: any): void {
+    if (pushSubscription) {
+      this.webp.sendNotification(pushSubscription, payload)
+        .then( res => {
+          console.log("Enviado ", res);
         })
-        .catch(function (error) {
-          logger.error('Push error: ', error)
+        .catch( error => {
+          console.log("Error ao enviar ", error);
         });
     }
   }
 
   arrayObjectIndexOf (myArray: any, searchTerm: any, property: any): number {
-
+    console.log("aew entrei");
     for (let i: number = 0, len: any = myArray.length; i < len; i++) {
       if (myArray[i][property] === searchTerm) {
 

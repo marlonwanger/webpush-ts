@@ -15,8 +15,9 @@ class WebPushRouter {
 
   routerLoader(): void {
 
-    this.router.post("/", this.webPushController.subscription );
-    this.router.get("/quantidade", this.webPushController.countSubscritption);
+    this.router.post("/subscription", (request, response) => {
+      this.webPushController.subscription(request, response);
+    });
   }
 }
 
