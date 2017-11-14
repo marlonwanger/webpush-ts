@@ -5,7 +5,7 @@ import Server from "./server";
 
 debug("ts-express:server");
 
-const port: any = normalizePort(process.env.PORT || 8080);
+const port: any = normalizePort(process.env.PORT || 3000);
 
 Server.set("port", port);
 
